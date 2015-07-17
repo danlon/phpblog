@@ -6,11 +6,18 @@
     //create DB object
     $db = new Database();
     
-    //create query
+    //create query for posts
     $query = "SELECT * FROM posts";
 
     //run query
     $posts = $db->select($query);
+
+
+    //create query for categories
+    $query = "SELECT * FROM categories";
+
+    //run query
+    $categories = $db->select($query);
 
 ?>
 <?php if($posts) : ?>
