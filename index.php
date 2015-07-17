@@ -20,7 +20,7 @@
             <p class="blog-post-meta"><?php echo formatDate($row['date']); ?> by <a href="#"><?php echo $row['author']; ?></a></p>
             <p><?php echo shortenText($row['body']); ?></p>
 
-            <a class="readmore" href="post.php?id=1">Read More</a>
+            <a class="readmore" href="post.php?id=<?php echo urlencode($row['id']); ?>">Read More</a>
         </div><!-- /.blog-post -->
 
 <?php endwhile; ?>
