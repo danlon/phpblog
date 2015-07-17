@@ -1,7 +1,5 @@
-<?php include '/config/config.php'; ?>
-<?php include '/libraries/Database.php'; ?>
 <?php include '/includes/header.php'; ?>
-<?php include '/helpers/format_helper.php'; ?>
+
 <?php
     //create DB object
     $db = new Database();
@@ -18,8 +16,8 @@
 
     //run query
     $categories = $db->select($query);
-
 ?>
+
 <?php if($posts) : ?>
     <?php while($row = $posts->fetch_assoc()) : ?>
         <div class="blog-post">
