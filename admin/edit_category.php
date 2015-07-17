@@ -1,10 +1,30 @@
 <?php include 'includes/header.php'; ?>
 
+<?php
+    $id = $_GET['id'];
+    
+    //create DB object
+    $db = new Database();
+    
+    //create query for posts
+    $query = "SELECT * FROM categories WHERE id = ". $id;
+
+    //run query
+    $category = $db->select($query)->fetch_assoc();
+
+
+    //create query for Categories
+    $query = "SELECT * FROM categories";
+
+    //run query
+    $categories = $db->select($query);
+
+?>
 
 <form role="form" method="post" action="edit_category.php"> 
     <div class="form-group">
         <label for="exampleInputEmail1">Edit Category Name</label>
-        <input name="name" type="text" class="form-control" placeholder=" Enter Category Name">
+        <input name="name" type="text" class="form-control" placeholder=" Enter Category Name" value="<?php echo $category['name']; ?>">
     </div>
     <input name="submit" type="submit" class="btn btn-default" value="Submit" />
     <a href="index.php" class="btn btn-default">Cancel</a>
