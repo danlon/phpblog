@@ -21,9 +21,45 @@
 
 ?>
 
+<?php
+    if (isset($_POST['submit'])) {
+        //assign Variables
+        $title = mysqli_real_escape_string($db->link, $_POST['title']);
+        $body = mysqli_real_escape_string($db->link, $_POST['body']);
+        $category = mysqli_real_escape_string($db->link, $_POST['category']);
+        $author = mysqli_real_escape_string($db->link, $_POST['author']);
+        $tags = mysqli_real_escape_string($db->link, $_POST['tags']);
+        //simple validation
+        if($title == '' || $body == '' || $category == '' || $author == '') {
+            //set error
+            $error = 'Please Fill out Required Fields';
+        } else {
+            $query = "UPDATE posts
+                    SET 
+                    title = '$title',
+                    body = '$body',
+                    category = '$category',
+                    author = '$author',
+                    tags = '$tags' 
+                    WHERE id =" .$id;
+            
+            $update_row = $db->update($query);
+        }
+    }
 
+?>
 
-<form role="form" method="post" action="edit_post.php">
+<?php
+    if (isset($_POST['delete'])) {
+        //create query
+        $query = "DELETE FROM posts WHERE id = " .$id;
+        $delete_row = $db->delete($query);
+            
+    }
+
+?>
+
+<form role="form" method="post" action="edit_post.php?id=<?php echo $id?>">
     <div class="form-group">
         <label>Post Title</label>
         <input name="title" type="text" class="form-control" placeholder="Eter title" value="<?php echo $post['title']; ?>">
@@ -46,7 +82,7 @@
                     $selected = '';    
                 }
             ?>
-               <option <?php echo $selected; ?>><?php echo $row['name']; ?></option>
+               <option value="<?php echo $row['id']; ?>" <?php echo $selected; ?>><?php echo $row['name']; ?></option>
             <?php endwhile; ?>
         </select>
     </div>

@@ -21,7 +21,38 @@
 
 ?>
 
-<form role="form" method="post" action="edit_category.php"> 
+<?php
+    if (isset($_POST['submit'])) {
+        //assign Variables
+        $name = mysqli_real_escape_string($db->link, $_POST['name']);
+        
+        //simple validation
+        if($name == '') {
+            //set error
+            $error = 'Please Fill out Required Fields';
+        } else {
+            $query = "UPDATE categories
+                    SET 
+                    name = '$name'
+                    WHERE id =" .$id;
+            $update_row = $db->update($query);
+        }
+    }
+
+?>
+
+
+<?php
+    if (isset($_POST['delete'])) {
+        //create query
+        $query = "DELETE FROM categories WHERE id = " .$id;
+        $delete_row = $db->delete($query);
+            
+    }
+
+?>
+
+<form role="form" method="post" action="edit_category.php?id=<?php echo $id; ?>"> 
     <div class="form-group">
         <label for="exampleInputEmail1">Edit Category Name</label>
         <input name="name" type="text" class="form-control" placeholder=" Enter Category Name" value="<?php echo $category['name']; ?>">
